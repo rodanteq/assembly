@@ -1,0 +1,291 @@
+
+pr3_a.elf:     file format elf32-littleriscv
+pr3_a.elf
+architecture: riscv:rv32, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x00000000
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x00000000 paddr 0x00000000 align 2**12
+         filesz 0x000000e8 memsz 0x000000e8 flags r-x
+    LOAD off    0x00002000 vaddr 0x00010000 paddr 0x00010000 align 2**12
+         filesz 0x00000020 memsz 0x00000024 flags rw-
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .text             000000e8  00000000  00000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data             00000020  00010000  00010000  00002000  2**0  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss              00000004  00010020  00010020  00002020  2**0  ALLOC
+  3 .riscv.attributes 0000001f  00000000  00000000  00002020  2**0  CONTENTS, READONLY
+  4 .debug_line       00000182  00000000  00000000  0000203f  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  5 .debug_info       00000026  00000000  00000000  000021c1  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_abbrev     00000014  00000000  00000000  000021e7  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  7 .debug_aranges    00000020  00000000  00000000  00002200  2**3  CONTENTS, READONLY, DEBUGGING, OCTETS
+  8 .debug_str        00000067  00000000  00000000  00002220  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+SYMBOL TABLE:
+00000000 l    d  .text	00000000 .text
+00010000 l    d  .data	00000000 .data
+00010020 l    d  .bss	00000000 .bss
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    df *ABS*	00000000 ./pr3_a.o
+00000004 l       *ABS*	00000000 N
+00010000 l       .data	00000000 A
+00010010 l       .data	00000000 B
+00010020 l       .bss	00000000 res
+0000007c l       .text	00000000 dotprod
+00000044 l       .text	00000000 cond
+00000050 l       .text	00000000 ent
+00000054 l       .text	00000000 save
+00000060 l       .text	00000000 fin
+00000064 l       .text	00000000 mul
+00000068 l       .text	00000000 while
+00000078 l       .text	00000000 end
+00000084 l       .text	00000000 for
+000000e4 l       .text	00000000 then
+00000000 g       .text	00000000 main
+00020000 g       *ABS*	00000000 _stack
+
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+main():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:66
+
+main:
+
+// variables normA, normB, A, B y res (s0, s1, s2, s3 y s4)
+// iniciamos sp (la memoria empieza en 10000) con ponerlo en 15000 sera suficiente
+	li sp, 0x15000
+   0:	00015137          	lui	sp,0x15
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:70
+// depurar el llamar de una funcion a otra (ra)
+// devolver parametros por a0??
+// cuidado alineamiento pila...
+	la t0, A
+   4:	00010297          	auipc	t0,0x10
+   8:	ffc28293          	addi	t0,t0,-4 # 10000 <A>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:71
+	la t1, B
+   c:	00010317          	auipc	t1,0x10
+  10:	00430313          	addi	t1,t1,4 # 10010 <B>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:72
+	mv s2, t0
+  14:	00028913          	mv	s2,t0
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:73
+	mv s3, t1
+  18:	00030993          	mv	s3,t1
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:74
+	mv a0, s2
+  1c:	00090513          	mv	a0,s2
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:75
+	mv a1, s2
+  20:	00090593          	mv	a1,s2
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:76
+	li a2, N
+  24:	00400613          	li	a2,4
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:77
+	call dotprod
+  28:	054000ef          	jal	ra,7c <dotprod>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:78
+	mv s0, a3
+  2c:	00068413          	mv	s0,a3
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:79
+	mv a0, s3
+  30:	00098513          	mv	a0,s3
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:80
+	mv a1, s3
+  34:	00098593          	mv	a1,s3
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:81
+	li a2, N
+  38:	00400613          	li	a2,4
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:82
+	call dotprod
+  3c:	040000ef          	jal	ra,7c <dotprod>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:83
+	mv s1, a3
+  40:	00068493          	mv	s1,a3
+
+00000044 <cond>:
+cond():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:85
+	cond:
+		ble s0, s1, ent
+  44:	0084d663          	bge	s1,s0,50 <ent>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:86
+		li s4, 0xa
+  48:	00a00a13          	li	s4,10
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:87
+		j save
+  4c:	0080006f          	j	54 <save>
+
+00000050 <ent>:
+ent():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:89
+	ent:
+		li s4, 0xb
+  50:	00b00a13          	li	s4,11
+
+00000054 <save>:
+save():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:91
+	save:
+		la t2, res
+  54:	00010397          	auipc	t2,0x10
+  58:	fcc38393          	addi	t2,t2,-52 # 10020 <res>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:92
+		sw s4, 0(t2)
+  5c:	0143a023          	sw	s4,0(t2)
+
+00000060 <fin>:
+fin():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:94
+	fin:
+		j fin
+  60:	0000006f          	j	60 <fin>
+
+00000064 <mul>:
+mul():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:102
+mul:
+
+// variables: a, b, res
+// pasamos a y b por a0 y a1 (los dejamos ahi)
+
+	li a2, 0 // res va a guardarse en a2 (se devuelve por parametro) y en memoria NO
+  64:	00000613          	li	a2,0
+
+00000068 <while>:
+while():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:104
+	while:
+		ble a1, x0, end
+  68:	00b05863          	blez	a1,78 <end>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:105
+		add a2, a2, a0
+  6c:	00a60633          	add	a2,a2,a0
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:106
+		addi a1, a1, -1
+  70:	fff58593          	addi	a1,a1,-1
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:107
+		j while
+  74:	ff5ff06f          	j	68 <while>
+
+00000078 <end>:
+end():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:109
+	end:
+		ret
+  78:	00008067          	ret
+
+0000007c <dotprod>:
+dotprod():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:117
+dotprod:
+
+// pasamos V, W y n por a0, a1, a2
+// variables: V, W, n, acc, i
+
+	li a3, 0 // acc se guarda en a3 para luego devolverlo (por parametro)
+  7c:	00000693          	li	a3,0
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:118
+	li t0, 0 // i se guarda en t0
+  80:	00000293          	li	t0,0
+
+00000084 <for>:
+for():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:120
+	for:
+		bge t0, a2, then
+  84:	06c2d063          	bge	t0,a2,e4 <then>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:122
+		// usamos t1 para cargar las direcciones, t2 y t3 para el valor del array, t4 para desplazar i
+		slli t4, t0, 2 // = multiplicar por 4
+  88:	00229e93          	slli	t4,t0,0x2
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:123
+		add t1, a0, t4 // sumamos el valor de i*4 a la direccion t1
+  8c:	01d50333          	add	t1,a0,t4
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:124
+		lw t2, 0(t1) // cargamos
+  90:	00032383          	lw	t2,0(t1)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:125
+		add t1, a1, t4 // repetimos
+  94:	01d58333          	add	t1,a1,t4
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:126
+		lw t3, 0(t1)
+  98:	00032e03          	lw	t3,0(t1)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:128
+		// guardamos todo en pila (i, n, acc, V y W)
+		sw t0, 0(sp)
+  9c:	00512023          	sw	t0,0(sp) # 15000 <res+0x4fe0>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:129
+		sw a2, -4(sp)
+  a0:	fec12e23          	sw	a2,-4(sp)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:130
+		sw a3, -8(sp)
+  a4:	fed12c23          	sw	a3,-8(sp)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:131
+		sw a0, -12(sp)
+  a8:	fea12a23          	sw	a0,-12(sp)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:132
+		sw a1, -16(sp)
+  ac:	feb12823          	sw	a1,-16(sp)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:133
+		addi sp, sp, -20
+  b0:	fec10113          	addi	sp,sp,-20
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:135
+		// ahora tenemos que llamar a la funcion mul, pasando V y W por parametros a0, a1 y nos devuelve el resultado por a2
+		mv a0, t2
+  b4:	00038513          	mv	a0,t2
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:136
+		mv a1, t3
+  b8:	000e0593          	mv	a1,t3
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:138
+		// ya estan a0 y a1 en sus respectivos registros,
+		call mul
+  bc:	fa9ff0ef          	jal	ra,64 <mul>
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:141
+		// nos devuelve el resultado por a2
+		// sumamos al antiguo valor de acc
+		lw t0, 12(sp)
+  c0:	00c12283          	lw	t0,12(sp)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:142
+		add a3, a2, t0
+  c4:	005606b3          	add	a3,a2,t0
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:144
+		// cargamos todo lo guardado en pila
+		lw t0, 20(sp)
+  c8:	01412283          	lw	t0,20(sp)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:145
+		lw a2, 16(sp)
+  cc:	01012603          	lw	a2,16(sp)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:146
+		lw a0, 8(sp)
+  d0:	00812503          	lw	a0,8(sp)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:147
+		lw a1, 4(sp)
+  d4:	00412583          	lw	a1,4(sp)
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:148
+		addi sp, sp, 20
+  d8:	01410113          	addi	sp,sp,20
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:150
+		// sumamos uno a i y volvemos a empezar
+		addi t0, t0, 1
+  dc:	00128293          	addi	t0,t0,1
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:151
+		j for
+  e0:	fa5ff06f          	j	84 <for>
+
+000000e4 <then>:
+then():
+C:\Users\radze\Documents\Universidad\Computadores2\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:154
+	then:
+		// devolvemos acc por el registro a3
+		ret
+  e4:	00008067          	ret

@@ -1,0 +1,125 @@
+
+pr2_a.elf:     file format elf32-littleriscv
+pr2_a.elf
+architecture: riscv:rv32, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x00000000
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x00000000 paddr 0x00000000 align 2**12
+         filesz 0x00000048 memsz 0x00000048 flags r-x
+    LOAD off    0x00002000 vaddr 0x00010000 paddr 0x00010000 align 2**12
+         filesz 0x00000020 memsz 0x00000024 flags rw-
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .text             00000048  00000000  00000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data             00000020  00010000  00010000  00002000  2**0  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss              00000004  00010020  00010020  00002020  2**0  ALLOC
+  3 .riscv.attributes 0000001f  00000000  00000000  00002020  2**0  CONTENTS, READONLY
+  4 .debug_line       00000097  00000000  00000000  0000203f  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  5 .debug_info       00000026  00000000  00000000  000020d6  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_abbrev     00000014  00000000  00000000  000020fc  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  7 .debug_aranges    00000020  00000000  00000000  00002110  2**3  CONTENTS, READONLY, DEBUGGING, OCTETS
+  8 .debug_str        0000004b  00000000  00000000  00002130  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+SYMBOL TABLE:
+00000000 l    d  .text	00000000 .text
+00010000 l    d  .data	00000000 .data
+00010020 l    d  .bss	00000000 .bss
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    df *ABS*	00000000 ./pr2_a.o
+00000008 l       *ABS*	00000000 N
+00010000 l       *ABS*	00000000 INT_MAX
+00010000 l       .data	00000000 V
+00010020 l       .bss	00000000 min
+00000020 l       .text	00000000 for
+00000040 l       .text	00000000 save
+00000034 l       .text	00000000 if
+00000044 l       .text	00000000 fin
+00000000 g       .text	00000000 main
+00020000 g       *ABS*	00000000 _stack
+
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+main():
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:37
+.bss
+min: .space 4
+
+.text
+main:
+    la s1, min
+   0:	00010497          	auipc	s1,0x10
+   4:	02048493          	addi	s1,s1,32 # 10020 <min>
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:38
+    li t0, INT_MAX  // en t0 se almacenara el minimo
+   8:	000102b7          	lui	t0,0x10
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:39
+    sw t0, 0(s1) // mum maximo con el que comparamos
+   c:	0054a023          	sw	t0,0(s1)
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:41
+
+    la s2, V// direccion base del vector
+  10:	00010917          	auipc	s2,0x10
+  14:	ff090913          	addi	s2,s2,-16 # 10000 <INT_MAX>
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:42
+    li t1, 0 // la i del bucle
+  18:	00000313          	li	t1,0
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:43
+    li t4, N // N=8 stop del bucle
+  1c:	00800e93          	li	t4,8
+
+00000020 <for>:
+for():
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:45
+
+    for: bge t1, t4, save
+  20:	03d35063          	bge	t1,t4,40 <save>
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:46
+    	slli t2,t1,2 // t2=t1*4
+  24:	00231393          	slli	t2,t1,0x2
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:47
+    	add t3, s2, t2 // t3= direccion base + offset
+  28:	00790e33          	add	t3,s2,t2
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:48
+    	lw a0, 0(t3)  // a0= V[i]
+  2c:	000e2503          	lw	a0,0(t3)
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:49
+    	addi t1, t1, 1
+  30:	00130313          	addi	t1,t1,1
+
+00000034 <if>:
+if():
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:50
+    	if: bge a0, t0, for
+  34:	fe5556e3          	bge	a0,t0,20 <for>
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:51
+    		add t0, a0, x0
+  38:	000502b3          	add	t0,a0,zero
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:52
+    		j for
+  3c:	fe5ff06f          	j	20 <for>
+
+00000040 <save>:
+save():
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:55
+
+    save:
+    	sw t0, 0(s1)
+  40:	0054a023          	sw	t0,0(s1)
+
+00000044 <fin>:
+fin():
+D:\FC2practicasWS_2025\FC2practicasWS\pr2_a\Debug/../pr2_a.asm:58
+
+    fin:
+     j fin
+  44:	0000006f          	j	44 <fin>

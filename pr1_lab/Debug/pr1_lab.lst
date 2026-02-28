@@ -1,0 +1,150 @@
+
+pr1_lab.elf:     file format elf32-littleriscv
+pr1_lab.elf
+architecture: riscv:rv32, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x00000000
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x00000000 paddr 0x00000000 align 2**12
+         filesz 0x00000060 memsz 0x00000060 flags r-x
+    LOAD off    0x00002000 vaddr 0x00010000 paddr 0x00010000 align 2**12
+         filesz 0x0000000c memsz 0x00000010 flags rw-
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .text             00000060  00000000  00000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data             0000000c  00010000  00010000  00002000  2**0  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss              00000004  0001000c  0001000c  0000200c  2**0  ALLOC
+  3 .riscv.attributes 0000001f  00000000  00000000  0000200c  2**0  CONTENTS, READONLY
+  4 .debug_line       000000b1  00000000  00000000  0000202b  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  5 .debug_info       00000026  00000000  00000000  000020dc  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_abbrev     00000014  00000000  00000000  00002102  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  7 .debug_aranges    00000020  00000000  00000000  00002118  2**3  CONTENTS, READONLY, DEBUGGING, OCTETS
+  8 .debug_str        0000004f  00000000  00000000  00002138  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+SYMBOL TABLE:
+00000000 l    d  .text	00000000 .text
+00010000 l    d  .data	00000000 .data
+0001000c l    d  .bss	00000000 .bss
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    df *ABS*	00000000 ./pr1_lab.o
+0001000c l       .bss	00000000 res
+00010000 l       .data	00000000 a
+00010004 l       .data	00000000 b
+00010008 l       .data	00000000 c
+00000034 l       .text	00000000 if1
+0000003c l       .text	00000000 if2
+00000050 l       .text	00000000 save
+00000040 l       .text	00000000 while
+0000005c l       .text	00000000 fin
+00000000 g       .text	00000000 main
+00020000 g       *ABS*	00000000 _stack
+
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+main():
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:38
+	b: .word 5
+	c: .word -1
+.text
+.global main
+main:
+	la t0, res // t0 guarda la direccion de res
+   0:	00010297          	auipc	t0,0x10
+   4:	00c28293          	addi	t0,t0,12 # 1000c <res>
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:39
+	sw x0, 0(t0) // guardamos el valor inicial de res
+   8:	0002a023          	sw	zero,0(t0)
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:40
+	lw s2, 0(t0) // s2 almacena el valor de res. Seria mas eficiente cargando el 0 como inmediato
+   c:	0002a903          	lw	s2,0(t0)
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:42
+
+	la t1, a // t1 guarda la direccion de a
+  10:	00010317          	auipc	t1,0x10
+  14:	ff030313          	addi	t1,t1,-16 # 10000 <a>
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:43
+	lw s3, 0(t1) // s3 almacena el valor de a.
+  18:	00032983          	lw	s3,0(t1)
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:45
+
+	la t2, b // t2 guarda la direccion de b
+  1c:	00010397          	auipc	t2,0x10
+  20:	fe838393          	addi	t2,t2,-24 # 10004 <b>
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:46
+	lw s4, 0(t2) // s4 almacena el valor de b.
+  24:	0003aa03          	lw	s4,0(t2)
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:48
+
+	la t3, c // t3 guarda la direccion de c
+  28:	00010e17          	auipc	t3,0x10
+  2c:	fe0e0e13          	addi	t3,t3,-32 # 10008 <c>
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:49
+	lw s5, 0(t3) // s5 almacena el valor de c.
+  30:	000e2a83          	lw	s5,0(t3)
+
+00000034 <if1>:
+if1():
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:52
+
+if1:
+	bge s5, x0, if2
+  34:	000ad463          	bgez	s5,3c <if2>
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:53
+	sub s5, x0, s5
+  38:	41500ab3          	neg	s5,s5
+
+0000003c <if2>:
+if2():
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:56
+
+if2:
+	ble s5, x0, save
+  3c:	01505a63          	blez	s5,50 <save>
+
+00000040 <while>:
+while():
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:59
+
+while:
+	ble s3, s4, save
+  40:	013a5863          	bge	s4,s3,50 <save>
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:60
+	sub s3, s3, s5
+  44:	415989b3          	sub	s3,s3,s5
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:61
+	addi s2, s2, 1
+  48:	00190913          	addi	s2,s2,1
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:62
+	j while
+  4c:	ff5ff06f          	j	40 <while>
+
+00000050 <save>:
+save():
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:65
+
+save:
+	sw s2,0(t0)
+  50:	0122a023          	sw	s2,0(t0)
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:66
+	sw s5,0(t3)
+  54:	015e2023          	sw	s5,0(t3)
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:67
+	sw s3,0(t1)
+  58:	01332023          	sw	s3,0(t1)
+
+0000005c <fin>:
+fin():
+D:\FC2practicasWS_2025\FC2practicasWS\pr1_lab\Debug/../pr1_lab.asm:70
+
+fin:
+	j fin
+  5c:	0000006f          	j	5c <fin>
