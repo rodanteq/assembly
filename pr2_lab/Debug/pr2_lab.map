@@ -15,19 +15,22 @@ END GROUP
 LOAD c:/software/electronica/eclipserv/sysgcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/rv32im/ilp32\libgcc.a
                 0x0000000000000000                . = 0x0
 
-.text           0x0000000000000000       0x78
+.text           0x0000000000000000       0xbc
  *(.text)
- .text          0x0000000000000000       0x78 ./pr2_lab.o
+ .text          0x0000000000000000       0xbc ./pr2_lab.o
                 0x0000000000000000                main
+
+.rela.dyn       0x00000000000000bc        0x0
+ .rela.text     0x00000000000000bc        0x0 ./pr2_lab.o
                 0x0000000000010000                . = 0x10000
 
-.data           0x0000000000010000       0x12
+.data           0x0000000000010000       0x20
  *(.data)
- .data          0x0000000000010000       0x12 ./pr2_lab.o
+ .data          0x0000000000010000       0x20 ./pr2_lab.o
 
-.bss            0x0000000000010012        0x4
+.bss            0x0000000000010020        0x4
  *(.bss)
- .bss           0x0000000000010012        0x4 ./pr2_lab.o
+ .bss           0x0000000000010020        0x4 ./pr2_lab.o
 
 .rodata
  *(.rodata)
@@ -39,8 +42,8 @@ OUTPUT(pr2_lab.elf elf32-littleriscv)
  .riscv.attributes
                 0x0000000000000000       0x1f ./pr2_lab.o
 
-.debug_line     0x0000000000000000       0xdb
- .debug_line    0x0000000000000000       0xdb ./pr2_lab.o
+.debug_line     0x0000000000000000      0x13b
+ .debug_line    0x0000000000000000      0x13b ./pr2_lab.o
 
 .debug_info     0x0000000000000000       0x26
  .debug_info    0x0000000000000000       0x26 ./pr2_lab.o

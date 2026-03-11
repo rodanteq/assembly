@@ -13,6 +13,84 @@
 **  Notas de diseño:
 **
 **-------------------------------------------------------------------*/
+.extern _stack
+.global main
+.equ N, 4
+.data
+V: .word 4, -2, 3, 7
+W: .word 2, 5, -3, 0
+.bss
+res : .space 4
+.text
+main :
+la sp , _stack // inicializa sp
+la a0 , V //1er arg : dir de V
+la a1 , W //2o arg : dir de W
+li a2 , N //3er arg : N
+call maxDist // llamada a maxDist
+la t0 , res
+sw a0 , 0( t0) // guardado de res
+fin :
+j fin
+maxDist :
+addi sp , sp , -24 // ///
+sw ra , 20( sp) //
+sw s0 , 16( sp) //
+sw s1 , 12( sp) // PRÓ LOGO
+sw s2 , 8( sp) //
+sw s3 , 4( sp) //
+sw s4 , 0( sp) // ///
+li s0 , 0 // s0 guarda max
+li s1 , 0 // s1 guarda i
+mv s2 , a0 // s2 guarda X
+mv s3 , a1 // s3 guarda Y
+mv s4 , a2 // s4 guarda n
+bucle :
+bge s1 , s4 , return_md
+lw a0 , 0( s2) //1er arg : X[i]
+lw a1 , 0( s3) //2o arg: Y[i]
+call subabs // llamada a subabs
+ble a0 , s0 , nextiter
+mv s0 , a0
+nextiter :
+addi s1 , s1 , 1 // actualizo iterador
+addi s2 , s2 , 4 //X++
+addi s3 , s3 , 4 //Y++
+j bucle // repito bucle
+return_md :
+mv a0 , s0 // coloco valor de retorno
+lw ra , 20( sp) // ///
+lw s0 , 16( sp) //
+lw s1 , 12( sp) //
+lw s2 , 8( sp) // EPÍ LOGO
+lw s3 , 4( sp) //
+lw s4 , 0( sp) //
+addi sp , sp , 24 // ///
+ret // devuelvo control
+subabs :
+sub a0 , a0 , a1 // calculo distancia
+bge a0 , zero , return_sa
+neg a0 , a0 // cambio a positivo
+return_sa:
+ret // devuelvo valor en a0
+.end
+
+/*
+---------------------------------------------------------------------
+**
+**  Fichero:
+**    pr2_lab.asm  19/10/2022
+**
+**    (c) Daniel Báscones García
+**    Fundamentos de Computadores II
+**    Facultad de Informática. Universidad Complutense de Madrid
+**
+**  Propósito:
+**    Fichero de código para la práctica 2_lab
+**
+**  Notas de diseño:
+**
+**-------------------------------------------------------------------
 
 .global main
 .equ N , 8
@@ -68,3 +146,5 @@ fin:
 	j fin
 
  .end
+
+ */
